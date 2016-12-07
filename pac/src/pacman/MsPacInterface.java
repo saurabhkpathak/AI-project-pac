@@ -1,14 +1,15 @@
 package pacman;
 
-import utilities.JEasyFrame;
-import utilities.ElapsedTimer;
-
-import java.awt.*;
+import java.applet.Applet;
+import java.awt.Rectangle;
+import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import stats.StatisticalSummary;
+import utilities.ElapsedTimer;
+import utilities.JEasyFrame;
 
 /**
  * User: Simon
@@ -26,7 +27,7 @@ import stats.StatisticalSummary;
  *  too close in any particular direction, then that would be detected
  */
 
-public class MsPacInterface {
+public class MsPacInterface extends Applet {
     // delay between each screen capture
     static int delay = 10;
     static boolean display = false;
