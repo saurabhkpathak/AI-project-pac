@@ -12,29 +12,29 @@ import pacman.game.GameView;
 
 import static pacman.game.Constants.*;
 
-public class IcarusMan extends Controller<MOVE> 
+public class IcarusMan extends Controller<MOVE>
 {
 	private ArrayList<SubsumptionLayer> layers = new ArrayList<SubsumptionLayer>();
-	
+
 	//add the subsumption layers
 	//uses default values found through testing
 	public IcarusMan()
 	{
-		layers.add(new EvadeLayer(5));
-		layers.add(new HuntLayer(75));
-		layers.add(new GatherLayer());
+		layers.add(new RunLayer(5));
+		layers.add(new KillLayer(75));
+		layers.add(new EatLayer());
 	}
-	
-	public IcarusMan(double huntDistance,double evadeDistance)
+
+	public IcarusMan(double killDistance,double runDistance)
 	{
-		layers.add(new EvadeLayer(evadeDistance));
-		layers.add(new HuntLayer(huntDistance));
-		layers.add(new GatherLayer());
+		layers.add(new RunLayer(runDistance));
+		layers.add(new KillLayer(killDistance));
+		layers.add(new EatLayer());
 	}
 
 	@Override
 	//cycle through the layers and apply the first move we come across
-	public MOVE getMove(Game game, long timeDue) 
+	public MOVE getMove(Game game, long timeDue)
 	{
 		for(int i = 0 ; i < layers.size() ; i++)
 		{
@@ -46,20 +46,20 @@ public class IcarusMan extends Controller<MOVE>
 		}
 		return null;
 	}
-	
+
 	//abstract subsumption layer class to allow a polymorphic subsumption architecture
 	public abstract class SubsumptionLayer
 	{
 		public abstract MOVE generateMove(Game game, long timeDue);
 	}
-	
-	//attempts to hunt ghosts that are within the specified hunt distance and over a certain edible time
-	public class HuntLayer extends SubsumptionLayer
+
+	//attempts to kill ghosts that are within the specified kill distance and over a certain edible time
+	public class KillLayer extends SubsumptionLayer
 	{
-		private double m_huntDistance;
-		public HuntLayer(double huntDistance)
+		private double m_killDistance;
+		public KillLayer(double killDistance)
 		{
-			m_huntDistance = huntDistance;
+			m_killDistance = killDistance;
 		}
 		@Override
 		public MOVE generateMove(Game game, long timeDue) {
@@ -96,24 +96,24 @@ public class IcarusMan extends Controller<MOVE>
 					closestGhost = i;
 				}
 			}
-			if(closestGhost!=-1 && closestGhostDistance<m_huntDistance)
+			if(closestGhost!=-1 && closestGhostDistance<m_killDistance)
 			{
 				return game.getNextMoveTowardsTarget(currentNode, ghostNodes[closestGhost], DM.PATH);
 			}
 			return null;
 		}
-		
+
 	}
-	
-	//attempts to evade the nearest ghost - if they are within the specified evadeDistance
+
+	//attempts to run from the nearest ghost - if they are within the specified runDistance
 	//and under the specified edible time
-	public class EvadeLayer extends SubsumptionLayer
+	public class RunLayer extends SubsumptionLayer
 	{
-		private double m_evadeDistance;
-		
-		public EvadeLayer(double evadeDistance)
+		private double m_runDistance;
+
+		public RunLayer(double runDistance)
 		{
-			m_evadeDistance = evadeDistance;
+			m_runDistance = runDistance;
 		}
 		@Override
 		public MOVE generateMove(Game game, long timeDue) {
@@ -151,17 +151,17 @@ public class IcarusMan extends Controller<MOVE>
 				}
 			}
 			//if ghost is too close avoid
-			if(closestGhost!=-1 && closestGhostDistance<m_evadeDistance)
+			if(closestGhost!=-1 && closestGhostDistance<m_runDistance)
 			{
 				return game.getNextMoveAwayFromTarget(currentNode, ghostNodes[closestGhost], DM.PATH);
 			}
 			return null;
 		}
-		
+
 	}
-	
-	//gather behaviour - gets all pills in the game world and directs Ms Pac-Man towards the nearest one
-	public class GatherLayer extends SubsumptionLayer
+
+	//eat behaviour - gets all pills in the game world and directs Ms Pac-Man towards the nearest one
+	public class EatLayer extends SubsumptionLayer
 	{
 
 		@Override
@@ -178,8 +178,8 @@ public class IcarusMan extends Controller<MOVE>
 			int target = game.getClosestNodeIndexFromNodeIndex(currentNode, targets, DM.PATH);
 			return game.getNextMoveTowardsTarget(currentNode, target, DM.PATH);
 		}
-		
+
 	}
-	
-		
+
+
 }
