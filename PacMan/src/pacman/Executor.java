@@ -13,17 +13,9 @@ import java.util.Random;
 import pacman.controllers.Controller;
 import pacman.controllers.HumanController;
 import pacman.controllers.KeyBoardInput;
-import pacman.controllers.examples.AggressiveGhosts;
-import pacman.controllers.examples.Legacy;
-import pacman.controllers.examples.Legacy2TheReckoning;
+import pacman.controllers.examples.TeamPacmanGhosts;
 import pacman.controllers.examples.NearestPillPacMan;
-import pacman.controllers.examples.NearestPillPacManVS;
-import pacman.controllers.examples.RandomGhosts;
-import pacman.controllers.examples.RandomNonRevPacMan;
-import pacman.controllers.examples.RandomPacMan;
-import pacman.controllers.examples.StarterGhosts;
-import pacman.controllers.examples.StarterPacMan;
-import pacman.controllers.examples.IcarusMan;
+import pacman.controllers.examples.TeamPacman;
 import pacman.game.Game;
 import pacman.game.GameView;
 
@@ -46,37 +38,27 @@ public class Executor
 	public static void main(String[] args)
 	{
 		Executor exec=new Executor();
-
-		/*
-		//run multiple games in batch mode - good for testing.
-		int numTrials=10;
-		exec.runExperiment(new RandomPacMan(),new RandomGhosts(),numTrials);
-		 */
+				
+////Test Number 1 - Performed to get the bets combination of the distances////
+////Test Number 2 - Performed to get the highest score and average for other controller////
+			/* int increment = 5;
 		
-		/*
-		//run a game in synchronous mode: game waits until controllers respond.
-		int delay=5;
-		boolean visual=true;
-		exec.runGame(new RandomPacMan(),new RandomGhosts(),visual,delay);
-  		 */
-
-		/*int increment = 5;
+			//open files to record the performance and parameters
 		
-		//open files to record the performance and parameters
-		
-		try {
-			PrintWriter average = new PrintWriter("average.txt");
-			PrintWriter run = new PrintWriter("run.txt");
-			PrintWriter kill = new PrintWriter("kill.txt");
+			try {
+				PrintWriter average = new PrintWriter("average.txt");
+				PrintWriter run = new PrintWriter("run.txt");
+				PrintWriter kill = new PrintWriter("kill.txt");
 		
 		
-			for (double runDistance = 0 ; runDistance < 70 ; runDistance+= increment)
+			for (double runDistance = 0 ; runDistance < 50 ; runDistance+= increment)
 			{
-				for (double killDistance = 0 ; killDistance < 200 ; killDistance+= increment)
+				for (double killDistance = 0 ; killDistance < 80 ; killDistance+= increment)
 				{
 					run.print(runDistance+",");
 					kill.print(killDistance+",");
-					average.print(exec.runExperiment(new IcarusMan(killDistance,runDistance),new StarterGhosts(),100)+",");
+					average.print(exec.runExperiment(new TeamPacman(killDistance,runDistance),new TeamPacmanGhosts(),100)+","); ///Test 1
+				////average.print(exec.runExperiment(new NearestPillPacMan(),new StarterGhosts(),1)+","); ///Test 2
 				}
 			}
 			
@@ -89,29 +71,11 @@ public class Executor
 		}*/
 		
 		
-		///*
 		//run the game in asynchronous mode.
-			boolean visual=true;
-//		exec.runGameTimed(new NearestPillPacMan(),new AggressiveGhosts(),visual);
-			exec.runGameTimed(new IcarusMan(),new StarterGhosts(),visual);
-//		exec.runGameTimed(new HumanController(new KeyBoardInput()),new StarterGhosts(),visual);	
-		//*/
-		
-		/*
-		//run the game in asynchronous mode but advance as soon as both controllers are ready  - this is the mode of the competition.
-		//time limit of DELAY ms still applies.
 		boolean visual=true;
-		boolean fixedTime=false;
-		exec.runGameTimedSpeedOptimised(new RandomPacMan(),new RandomGhosts(),fixedTime,visual);
-		*/
+		exec.runGameTimed(new TeamPacman(),new TeamPacmanGhosts(),visual);
+		///exec.runGameTimed(new NearestPillPacMan(),new TeamPacmanGhosts(),visual); ///Test 2
 		
-		/*
-		//run game in asynchronous mode and record it to file for replay at a later stage.
-		boolean visual=true;
-		String fileName="replay.txt";
-		exec.runGameTimedRecorded(new HumanController(new KeyBoardInput()),new RandomGhosts(),visual,fileName);
-		//exec.replayGame(fileName,visual);
-		 */
 	}
 	
     /**
