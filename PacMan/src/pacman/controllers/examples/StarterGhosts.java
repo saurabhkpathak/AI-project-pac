@@ -16,7 +16,7 @@ import static pacman.game.Constants.*;
  * 1. If edible or Ms Pac-Man is close to power pill, run away from Ms Pac-Man
  * 2. If non-edible, attack Ms Pac-Man with certain probability, else choose random direction
  */
-public final class TeamPacmanGhosts extends Controller<EnumMap<GHOST,MOVE>>
+public final class StarterGhosts extends Controller<EnumMap<GHOST,MOVE>>
 {	
 	private final static float CONSISTENCY=0.9f;	//attack Ms Pac-Man with this probability
 	private final static int PILL_PROXIMITY=15;		//if Ms Pac-Man is this close to a power pill, back away
