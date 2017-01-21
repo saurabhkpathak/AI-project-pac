@@ -66,23 +66,23 @@ public class Executor
 		
 		try {
 			PrintWriter average = new PrintWriter("average.txt");
-			PrintWriter evade = new PrintWriter("evade.txt");
-			PrintWriter hunt = new PrintWriter("hunt.txt");
+			PrintWriter run = new PrintWriter("run.txt");
+			PrintWriter kill = new PrintWriter("kill.txt");
 		
 		
-			for (double evadeDistance = 0 ; evadeDistance < 70 ; evadeDistance+= increment)
+			for (double runDistance = 0 ; runDistance < 70 ; runDistance+= increment)
 			{
-				for (double huntDistance = 0 ; huntDistance < 200 ; huntDistance+= increment)
+				for (double killDistance = 0 ; killDistance < 200 ; killDistance+= increment)
 				{
-					evade.print(evadeDistance+",");
-					hunt.print(huntDistance+",");
-					average.print(exec.runExperiment(new IcarusMan(huntDistance,evadeDistance),new StarterGhosts(),100)+",");
+					run.print(runDistance+",");
+					kill.print(killDistance+",");
+					average.print(exec.runExperiment(new IcarusMan(killDistance,runDistance),new StarterGhosts(),100)+",");
 				}
 			}
 			
 			average.close();
-			evade.close();
-			hunt.close();
+			run.close();
+			kill.close();
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
