@@ -12,20 +12,20 @@ import pacman.game.GameView;
 
 import static pacman.game.Constants.*;
 
-public class IcarusMan extends Controller<MOVE>
+public class TeamPacman extends Controller<MOVE>
 {
 	private ArrayList<SubsumptionLayer> layers = new ArrayList<SubsumptionLayer>();
 
 	//add the subsumption layers
 	//uses default values found through testing
-	public IcarusMan()
+	public TeamPacman()
 	{
 		layers.add(new RunLayer(5));
 		layers.add(new KillLayer(75));
 		layers.add(new EatLayer());
 	}
 
-	public IcarusMan(double killDistance,double runDistance)
+	public TeamPacman(double killDistance,double runDistance)
 	{
 		layers.add(new RunLayer(runDistance));
 		layers.add(new KillLayer(killDistance));
