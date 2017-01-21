@@ -60,7 +60,7 @@ public class Executor
 		exec.runGame(new RandomPacMan(),new RandomGhosts(),visual,delay);
   		 */
 
-		int increment = 5;
+		/*int increment = 5;
 		
 		//open files to record the performance and parameters
 		
@@ -86,14 +86,14 @@ public class Executor
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		
 		///*
 		//run the game in asynchronous mode.
-		//	boolean visual=true;
+			boolean visual=true;
 //		exec.runGameTimed(new NearestPillPacMan(),new AggressiveGhosts(),visual);
-		//	exec.runGameTimed(new IcarusMan(),new StarterGhosts(),visual);
+			exec.runGameTimed(new IcarusMan(),new StarterGhosts(),visual);
 //		exec.runGameTimed(new HumanController(new KeyBoardInput()),new StarterGhosts(),visual);	
 		//*/
 		
